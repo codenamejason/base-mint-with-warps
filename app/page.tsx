@@ -1,6 +1,6 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
-import { NEXT_PUBLIC_URL } from './config';
+import { DONATE_IMAGE, NEXT_PUBLIC_URL, START_IMAGE } from './config';
 import { getCollection } from './lib/collection';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -9,11 +9,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const frameMetadata = getFrameMetadata({
     buttons: [
       {
-        label: 'Check eligibility',
+        label: 'Donate Now',
       },
+      // {
+      //   label: 'Shit',
+      // }
     ],
-    image: `${NEXT_PUBLIC_URL}/api/images/start`,
-    post_url: `${NEXT_PUBLIC_URL}/api/start`,
+    image: `${START_IMAGE}`,
+    post_url: `${NEXT_PUBLIC_URL}/api/donate`,
   });
 
   return {
@@ -22,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: name,
       description: "Check if you're eligible for a free mint",
-      images: [`${NEXT_PUBLIC_URL}/api/images/start`],
+      images: [`${DONATE_IMAGE}`],
     },
     other: {
       ...frameMetadata,
@@ -47,7 +50,7 @@ export default async function Page() {
             </button>
           </a>
           <div className="text-xs text-stone-400 hover:underline tracking-tighter text-center">
-            <a href="https://github.com/horsefacts/base-mint-with-warps" target="_blank">
+            <a href="https://github.com/codenamejason/base-mint-with-warps" target="_blank">
               See code on Github
             </a>
           </div>

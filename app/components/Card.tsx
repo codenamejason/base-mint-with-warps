@@ -1,7 +1,7 @@
-import { CARD_DIMENSIONS, TOKEN_IMAGE } from '../config';
+import { CARD_DIMENSIONS, START_IMAGE } from '../config';
 
 export function Card({ message, image }: { message: string; image?: string }) {
-  const imageSrc = image ?? TOKEN_IMAGE;
+  const imageSrc = image ?? START_IMAGE;
   return (
     <div
       style={{

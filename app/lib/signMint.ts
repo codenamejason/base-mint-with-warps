@@ -10,7 +10,7 @@ const account = privateKeyToAccount(SIGNER_PRIVATE_KEY);
 const chainId = base.id;
 
 const domain = {
-  name: 'Farcaster Frame Zora Minter',
+  name: 'Farcaster QV Funding Minter',
   version: '1',
   chainId,
   verifyingContract: MINTER_CONTRACT,
