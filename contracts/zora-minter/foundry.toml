@@ -4,6 +4,7 @@ out = "out"
 libs = ["lib"]
 evm_version = "paris"
 optimizer_runs = 100_000
+remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
 
 [rpc_endpoints]
 base = "${BASE_MAINNET_RPC}"
