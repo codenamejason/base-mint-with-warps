@@ -4,7 +4,15 @@ out = "out"
 libs = ["lib"]
 evm_version = "paris"
 optimizer_runs = 100_000
-remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
+remappings = [
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/',
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/',
+  'ds-test/=lib/forge-std/lib/ds-test/src/',
+  'erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/',
+  'forge-std/=lib/forge-std/src/',
+  'openzeppelin-contracts/=lib/openzeppelin-contracts/',
+  'solady/=lib/solady/src/',
+]
 
 [rpc_endpoints]
 base = "${BASE_MAINNET_RPC}"
