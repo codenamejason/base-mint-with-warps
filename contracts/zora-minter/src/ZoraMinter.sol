@@ -3,8 +3,8 @@ pragma solidity 0.8.23;
 
 import {Ownable} from "solady/auth/Ownable.sol";
 import {EIP712} from "solady/utils/EIP712.sol";
-import {SignatureCheckerLib} from "solady/utils/SignatureCheckerLib.sol";
-import {SafeTransferLib} from "solady/utils/SafeTransferLib.sol";
+import {SignatureCheckerLib} from "@solady/utils/SignatureCheckerLib.sol";
+import {SafeTransferLib} from "@solady/utils/SafeTransferLib.sol";
 
 import {IZoraCreator1155} from "./IZoraCreator1155.sol";
 
@@ -31,8 +31,7 @@ contract ZoraMinter is Ownable, EIP712 {
     event SetMinter(address oldMinter, address newMinter);
 
     /// @notice EIP-712 typehash for `Mint` message
-    bytes32 public constant MINT_TYPEHASH =
-        keccak256("Mint(address to,uint256 tokenId,uint256 fid)");
+    bytes32 public constant MINT_TYPEHASH = keccak256("Mint(address to,uint256 tokenId,uint256 fid)");
 
     /// @notice Address that receives mint referral rewards
     address public referrer;
@@ -55,13 +54,7 @@ contract ZoraMinter is Ownable, EIP712 {
     /// @param _signer Frame server address that must sign `Mint` messages.
     /// @param _collection Zora 1155 collection address.
     /// @param _minter Zora minter address.
-    constructor(
-        address _owner,
-        address _referrer,
-        address _signer,
-        address _collection,
-        address _minter
-    ) {
+    constructor(address _owner, address _referrer, address _signer, address _collection, address _minter) {
         _initializeOwner(_owner);
         emit SetReferrer(address(0), referrer = _referrer);
         emit SetSigner(address(0), signer = _signer);
@@ -71,12 +64,7 @@ contract ZoraMinter is Ownable, EIP712 {
 
     /// @notice Mint a token.
     ///         Caller must provide an EIP-712 `Mint` signature from the Frame server.
-    function mint(
-        address to,
-        uint256 tokenId,
-        uint256 fid,
-        bytes calldata sig
-    ) external {
+    function mint(address to, uint256 tokenId, uint256 fid, bytes calldata sig) external {
         if (!_verifySignature(to, tokenId, fid, sig)) {
             revert InvalidSignature();
         }
@@ -88,9 +76,7 @@ contract ZoraMinter is Ownable, EIP712 {
         emit Mint(to, tokenId, fid);
 
         uint256 fee = mintFee();
-        IZoraCreator1155(collection).mintWithRewards{value: fee}(
-            minter, tokenId, 1, abi.encode(to), referrer
-        );
+        IZoraCreator1155(collection).mintWithRewards{value: fee}(minter, tokenId, 1, abi.encode(to), referrer);
     }
 
     /// @notice Set referrer address. Only callable by owner.
@@ -133,26 +119,18 @@ contract ZoraMinter is Ownable, EIP712 {
     }
 
     /// @dev EIP-712 domain name and contract version.
-    function _domainNameAndVersion()
-        internal
-        pure
-        override
-        returns (string memory, string memory)
-    {
+    function _domainNameAndVersion() internal pure override returns (string memory, string memory) {
         return ("Farcaster Frame Zora Minter", "1");
     }
 
     /// @dev Verify EIP-712 `Mint` signature.
-    function _verifySignature(
-        address to,
-        uint256 tokenId,
-        uint256 fid,
-        bytes calldata sig
-    ) internal view returns (bool) {
-        bytes32 digest =
-            _hashTypedData(keccak256(abi.encode(MINT_TYPEHASH, to, tokenId, fid)));
-        return
-            SignatureCheckerLib.isValidSignatureNowCalldata(signer, digest, sig);
+    function _verifySignature(address to, uint256 tokenId, uint256 fid, bytes calldata sig)
+        internal
+        view
+        returns (bool)
+    {
+        bytes32 digest = _hashTypedData(keccak256(abi.encode(MINT_TYPEHASH, to, tokenId, fid)));
+        return SignatureCheckerLib.isValidSignatureNowCalldata(signer, digest, sig);
     }
 
     receive() external payable {}

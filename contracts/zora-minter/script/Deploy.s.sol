@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.20;
+pragma solidity 0.8.23;
 
 import {ZoraMinter} from "../src/ZoraMinter.sol";
 import {Script, console} from "forge-std/Script.sol";
@@ -14,6 +14,6 @@ contract Deploy is Script {
         address owner = msg.sender;
 
         vm.broadcast();
-        new ZoraMinter{ salt: unicode"🐎" }(owner, referrer, signer, collection, minter);
+        new ZoraMinter{salt: unicode"🐎"}(owner, referrer, signer, collection, minter);
     }
 }

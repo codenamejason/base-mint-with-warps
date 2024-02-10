@@ -36,10 +36,7 @@ contract ZoraMinterTest is Test {
         minter = new ZoraMinter(owner, referrer, signer, collection, zoraMinter);
     }
 
-    function testFuzz_mint_validSig(
-        address caller,
-        uint256 fid
-    ) public {
+    function testFuzz_mint_validSig(address caller, uint256 fid) public {
         vm.deal(address(minter), minter.mintFee());
         bytes memory sig = _signMint(signerPk, alice, 1, fid);
 
@@ -54,11 +51,7 @@ contract ZoraMinterTest is Test {
         assertEq(token.balanceOf(alice, 1), 1);
     }
 
-    function testFuzz_mint_invalidSig(
-        address caller,
-        uint256 fid,
-        bytes calldata sig
-    ) public {
+    function testFuzz_mint_invalidSig(address caller, uint256 fid, bytes calldata sig) public {
         vm.deal(address(minter), minter.mintFee());
         bytes memory validSig = _signMint(signerPk, alice, 1, fid);
         vm.assume(keccak256(sig) != keccak256(validSig));
@@ -68,10 +61,7 @@ contract ZoraMinterTest is Test {
         minter.mint(alice, 1, fid, sig);
     }
 
-    function testFuzz_mint_alreadyMinted(
-        address caller,
-        uint256 fid
-    ) public {
+    function testFuzz_mint_alreadyMinted(address caller, uint256 fid) public {
         uint256 fee = minter.mintFee();
         vm.deal(address(minter), fee * 2);
         bytes memory sig = _signMint(signerPk, alice, 1, fid);
@@ -176,11 +166,7 @@ contract ZoraMinterTest is Test {
         minter.setMinter(newMinter);
     }
 
-    function testFuzz_withdraw(
-        address to,
-        uint256 balance,
-        uint256 _amount
-    ) public {
+    function testFuzz_withdraw(address to, uint256 balance, uint256 _amount) public {
         vm.assume(to != address(minter));
         uint256 amount = bound(_amount, 0, balance);
 
@@ -202,22 +188,8 @@ contract ZoraMinterTest is Test {
         minter.withdraw(owner, amount);
     }
 
-    function _signMint(
-        uint256 pk,
-        address to,
-        uint256 tokenId,
-        uint256 fid
-    ) public returns (bytes memory signature) {
-        bytes32 digest = minter.hashTypedData(
-            keccak256(
-                abi.encode(
-                    minter.MINT_TYPEHASH(),
-                    to,
-                    tokenId,
-                    fid
-                )
-            )
-        );
+    function _signMint(uint256 pk, address to, uint256 tokenId, uint256 fid) public returns (bytes memory signature) {
+        bytes32 digest = minter.hashTypedData(keccak256(abi.encode(minter.MINT_TYPEHASH(), to, tokenId, fid)));
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(pk, digest);
         signature = abi.encodePacked(r, s, v);
         assertEq(signature.length, 65);

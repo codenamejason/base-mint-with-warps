@@ -2,10 +2,10 @@
 // By Will Papper
 // Example NFT contract for the Syndicate Frame API
 
-pragma solidity 0.8.20;
+pragma solidity 0.8.23;
 
-import {ERC721} from "@openzeppelin-contracts/token/ERC721/ERC721.sol";
-import {Ownable} from "@lib/openzeppelin-contracts/access/Ownable.sol";
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract SyndicateFrameNFT is ERC721, Ownable {
     uint256 public currentTokenId = 0;
@@ -150,6 +150,10 @@ contract SyndicateFrameNFT is ERC721, Ownable {
     // This function ensures that ETH sent directly to the contract by mistake
     // is rejected
     fallback() external payable {
+        revert("FrameNFTs: Does not accept ETH");
+    }
+
+    receive() external payable {
         revert("FrameNFTs: Does not accept ETH");
     }
 }
