@@ -1,7 +1,7 @@
 import { FrameRequest, FrameValidationData, getFrameMessage } from '@coinbase/onchainkit';
 import { kv } from '@vercel/kv';
 import { NextRequest, NextResponse } from 'next/server';
-import { NEXT_PUBLIC_URL } from '../../config';
+import { NEXT_PUBLIC_URL, START_IMAGE } from '../../config';
 import { getAddressButtons } from '../../lib/addresses';
 import signMintData from '../../lib/signMint';
 import { allowedOrigin } from '../../lib/origin';
@@ -19,20 +19,24 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     neynarApiKey: process.env.NEYNAR_API_KEY,
   });
 
+  console.log('is Valid', isValid, message);
+
   // const isActive = message?.raw.action.interactor.active_status === 'active';
   // let session = ((await kv.get(`session:${message?.interactor.fid}`)) ?? {}) as Session;
 
-  if (isValid && allowedOrigin(message)) {
+  if (isValid) {
+    //  && allowedOrigin(message)
     // Donate 1$
     if (message.button === 1) {
       return new NextResponse(
         getFrameHtml({
           buttons: [
             {
-              label: 'Thank You! 🎉',
+              label: 'Donate 1$ 💵',
             },
           ],
-          image: `${NEXT_PUBLIC_URL}/api/images/donated`,
+          image: `${START_IMAGE}`,
+          post_url: `${NEXT_PUBLIC_URL}/api/donated/1`,
         }),
       );
       // Donate 3$
@@ -41,10 +45,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtml({
           buttons: [
             {
-              label: 'Thank You! 🎉',
+              label: 'Donate 3$ 💵',
             },
           ],
-          image: `${NEXT_PUBLIC_URL}/api/images/donated`,
+          image: `${START_IMAGE}`,
+          post_url: `${NEXT_PUBLIC_URL}/api/donated/3`,
         }),
       );
       // Donate 5$
@@ -53,10 +58,11 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
         getFrameHtml({
           buttons: [
             {
-              label: 'Thank You! 🎉',
+              label: 'Donate 5$ 💵',
             },
           ],
-          image: `${NEXT_PUBLIC_URL}/api/images/donated`,
+          image: `${START_IMAGE}`,
+          post_url: `${NEXT_PUBLIC_URL}/api/donated/5`,
         }),
       );
     } else if (message.button === 4) {
@@ -67,7 +73,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
               label: 'Share',
             },
           ],
-          image: `${NEXT_PUBLIC_URL}/api/images/share`,
+          image: `${START_IMAGE}/api/images/share`,
           post_url: `${NEXT_PUBLIC_URL}/api/share`,
         }),
       );
@@ -130,8 +136,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       return new NextResponse(
         getFrameHtml({
           buttons: [{ label: 'Nope' }],
-          image: `${NEXT_PUBLIC_URL}/api/images/confirm`,
-          post_url: `${NEXT_PUBLIC_URL}/api/confirm`,
+          image: `${NEXT_PUBLIC_URL}/api/images/error`,
+          post_url: `${NEXT_PUBLIC_URL}/api/donation`,
         }),
       );
     }

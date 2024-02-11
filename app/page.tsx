@@ -15,19 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const frameMetadata = getFrameMetadata({
     buttons: [
       {
-        label: 'Donte $1',
-        action: 'mint',
-        target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID_1}`,
+        label: 'Donate $1',
       },
       {
-        label: 'Donte $3',
-        action: 'mint',
-        target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID_1}`,
+        label: 'Donate $3',
       },
       {
-        label: 'Donte $5',
-        action: 'mint',
-        target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID_1}`,
+        label: 'Donate $5',
       },
       {
         label: 'Share',

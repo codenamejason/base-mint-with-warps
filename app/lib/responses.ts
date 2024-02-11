@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { NEXT_PUBLIC_URL, ZORA_COLLECTION_ADDRESS } from '../config';
+import { NEXT_PUBLIC_URL, START_IMAGE, ZORA_COLLECTION_ADDRESS } from '../config';
 import { getFrameHtml } from './getFrameHtml';
 
 export function errorResponse() {
@@ -16,10 +16,11 @@ export async function mintResponse() {
       buttons: [
         {
           label: 'Share',
+          action: 'link',
           target: `https://shareme.com`, // todo: udpate
         },
       ],
-      image: `${NEXT_PUBLIC_URL}/api/images/donated`,
+      image: `${START_IMAGE}`,
     }),
   );
 }

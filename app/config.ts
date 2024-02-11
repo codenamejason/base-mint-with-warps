@@ -9,6 +9,6 @@ export const CARD_DIMENSIONS = {
   width: 800,
   height: 800,
 };
-export const TOKEN_IMAGE = 'https://ipfs.io/ipfs/QmSdPavyZC5akuUAKr67vUVozASfRGU1vccTcJ2VRmhQFk';
-export const START_IMAGE = 'https://ipfs.io/ipfs/QmSdPavyZC5akuUAKr67vUVozASfRGU1vccTcJ2VRmhQFk';
-export const DONATE_IMAGE = 'https://ipfs.io/ipfs/QmSdPavyZC5akuUAKr67vUVozASfRGU1vccTcJ2VRmhQFk';
+export const TOKEN_IMAGE = "https://ipfs.io/ipfs/QmSdPavyZC5akuUAKr67vUVozASfRGU1vccTcJ2VRmhQFk";
+export const START_IMAGE = "https://ipfs.io/ipfs/QmSdPavyZC5akuUAKr67vUVozASfRGU1vccTcJ2VRmhQFk";
+export const DONATE_IMAGE = "https://ipfs.io/ipfs/QmSdPavyZC5akuUAKr67vUVozASfRGU1vccTcJ2VRmhQFk";
