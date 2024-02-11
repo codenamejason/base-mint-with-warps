@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { NEXT_PUBLIC_URL, ZORA_COLLECTION_ADDRESS, ZORA_TOKEN_ID } from '../config';
+import { NEXT_PUBLIC_URL, ZORA_COLLECTION_ADDRESS } from '../config';
 import { getFrameHtml } from './getFrameHtml';
 
 export function errorResponse() {
@@ -15,12 +15,11 @@ export async function mintResponse() {
     getFrameHtml({
       buttons: [
         {
-          label: 'Mint',
-          action: 'mint',
-          target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID}`,
+          label: 'Share',
+          target: `https://shareme.com`, // todo: udpate
         },
       ],
-      image: `${NEXT_PUBLIC_URL}/api/images/inactive`,
+      image: `${NEXT_PUBLIC_URL}/api/images/donated`,
     }),
   );
 }

@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
-// By Will Papper
-// Example NFT contract for the Syndicate Frame API
-
 pragma solidity 0.8.23;
 
+/// @title FrameNFT
+/// @notice ERC721 contract for Syndicate Frame NFTs
+/// @author @codenamejason <jaxcoder75@gmail.com>
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SyndicateFrameNFT is ERC721, Ownable {
+contract FrameNFT is ERC721, Ownable {
     uint256 public currentTokenId = 0;
     string public defaultURI;
 
@@ -42,7 +42,7 @@ contract SyndicateFrameNFT is ERC721, Ownable {
     // The deployer is set as the initial owner by default. Make sure to
     // transfer this to a Safe or other multisig for long-term use!
     // You can call `transferOwnership` to do this.
-    constructor() ERC721("SyndicateFrameNFT", "SYNFRAME") Ownable(msg.sender) {
+    constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) Ownable(msg.sender) {
         // Update this with your own NFT collection's metadata
         defaultURI = "ipfs://QmSFqezaUhBKr32Z2vgFrbDPGYdbcj8zQcQvsDqbU6b6UH";
         maxMintPerAddress = 1;

@@ -8,6 +8,10 @@ import {SafeTransferLib} from "solady/utils/SafeTransferLib.sol";
 
 import {IZoraCreator1155} from "./IZoraCreator1155.sol";
 
+/// @title ZoraMinter
+/// @notice Mints Zora 1155 tokens through the Frame server
+/// @dev This contract is designed to be used with the Frame server
+/// @author @codenamejason <jaxcoder75@gmail.com>
 contract ZoraMinter is Ownable, EIP712 {
     /// @notice Token has already been claimed for this fid
     error AlreadyMinted();

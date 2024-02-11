@@ -31,7 +31,8 @@ contract ZoraMinterTest is Test {
     error Unauthorized();
 
     function setUp() public {
-        vm.createSelectFork("base");
+        string memory rpc = vm.envString("NEXT_PUBLIC_RPC_URL");
+        vm.createSelectFork(rpc);
         (signer, signerPk) = makeAddrAndKey("signer");
         minter = new ZoraMinter(owner, referrer, signer, collection, zoraMinter);
     }

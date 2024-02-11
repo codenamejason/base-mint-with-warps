@@ -1,6 +1,12 @@
 import { getFrameMetadata } from '@coinbase/onchainkit';
 import type { Metadata } from 'next';
-import { DONATE_IMAGE, NEXT_PUBLIC_URL, START_IMAGE } from './config';
+import {
+  DONATE_IMAGE,
+  NEXT_PUBLIC_URL,
+  START_IMAGE,
+  ZORA_COLLECTION_ADDRESS,
+  ZORA_TOKEN_ID_1,
+} from './config';
 import { getCollection } from './lib/collection';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -9,22 +15,37 @@ export async function generateMetadata(): Promise<Metadata> {
   const frameMetadata = getFrameMetadata({
     buttons: [
       {
-        label: 'Donate Now',
+        label: 'Donte $1',
+        action: 'mint',
+        target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID_1}`,
       },
-      // {
-      //   label: 'Shit',
-      // }
+      {
+        label: 'Donte $3',
+        action: 'mint',
+        target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID_1}`,
+      },
+      {
+        label: 'Donte $5',
+        action: 'mint',
+        target: `eip155:8453:${ZORA_COLLECTION_ADDRESS}:${ZORA_TOKEN_ID_1}`,
+      },
+      {
+        label: 'Share',
+        action: 'link',
+        target: `https://shareme.com`, // todo: udpate
+      }
     ],
-    image: `${START_IMAGE}`,
+    image: `${DONATE_IMAGE}`,
     post_url: `${NEXT_PUBLIC_URL}/api/donate`,
   });
 
   return {
+    metadataBase: new URL(NEXT_PUBLIC_URL as string),
     title: name,
-    description: "Check if you're eligible for a free mint",
+    description: 'Donate to your favorite projects on Warpcaster',
     openGraph: {
       title: name,
-      description: "Check if you're eligible for a free mint",
+      description: 'Donate to your favorite projects on Warpcaster',
       images: [`${DONATE_IMAGE}`],
     },
     other: {

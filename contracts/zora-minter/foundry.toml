@@ -15,7 +15,10 @@ remappings = [
 ]
 
 [rpc_endpoints]
-base = "${BASE_MAINNET_RPC}"
+base = "${RPC_URL}"
+
+[etherscan]
+8453 = { key = "${BASESCAN_API_KEY}", url = "https://api.basescan.org/api" }
 
 [fmt]
 line_length = 80
